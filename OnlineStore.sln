@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36221.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineStore", "OnlineStore\OnlineStore.csproj", "{D7D84FCD-A664-4ADA-AF4E-413E5AA0EE95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{29D66444-C6AA-4902-90E0-628C44E51F57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{6C56B592-3021-42F8-884F-CE5D3877FE54}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D7D84FCD-A664-4ADA-AF4E-413E5AA0EE95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7D84FCD-A664-4ADA-AF4E-413E5AA0EE95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7D84FCD-A664-4ADA-AF4E-413E5AA0EE95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7D84FCD-A664-4ADA-AF4E-413E5AA0EE95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29D66444-C6AA-4902-90E0-628C44E51F57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29D66444-C6AA-4902-90E0-628C44E51F57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29D66444-C6AA-4902-90E0-628C44E51F57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29D66444-C6AA-4902-90E0-628C44E51F57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C56B592-3021-42F8-884F-CE5D3877FE54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C56B592-3021-42F8-884F-CE5D3877FE54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C56B592-3021-42F8-884F-CE5D3877FE54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C56B592-3021-42F8-884F-CE5D3877FE54}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E3131A40-08D7-4977-AC8F-A39E5CFFD91D}
+	EndGlobalSection
+EndGlobal
