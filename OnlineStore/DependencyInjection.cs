@@ -1,7 +1,7 @@
 ﻿using DataAccess.Context;
-using DataAccess.Repositories;
 using DataAccess.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
+using OnlineStore.ExceptionHandling;
 using Services.Services;
 
 namespace OnlineStore
@@ -29,6 +29,7 @@ namespace OnlineStore
 
             services.AddScoped<IUnitOfWork<OnlineStoreDbContext>, UnitOfWork>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddTransient<GlobalExceptionMiddleware>();
 
             return services;
         }
