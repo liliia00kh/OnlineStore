@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OnlineStore.DTOs;
 using OnlineStore.ExceptionHandling;
 using Services.Services;
@@ -17,6 +18,7 @@ namespace OnlineStore.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetProducts()
         {
             var products = await _productService.GetAllProductsAsync();
