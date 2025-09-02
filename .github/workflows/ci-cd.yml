@@ -28,7 +28,7 @@ jobs:
       run: dotnet build OnlineStore.sln --configuration Release --no-restore
       
     - name: Run tests
-      run: dotnet test OnlineStore.sln --no-build --verbosity normal
+      run: dotnet test ServicesTests/ServicesTests.csproj --no-build --verbosity normal
       
     - name: Publish
       run: dotnet publish OnlineStore/OnlineStore.csproj -c Release -o out
