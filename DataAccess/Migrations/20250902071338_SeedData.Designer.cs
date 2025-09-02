@@ -3,6 +3,7 @@ using DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(OnlineStoreDbContext))]
-    partial class OnlineStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250902071338_SeedData")]
+    partial class SeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,7 +101,7 @@ namespace DataAccess.Migrations
                             Id = 1,
                             CategoryId = 1,
                             Description = "Bag 1 description",
-                            ImageUrl = "images\\bags\\bag-1.jpg",
+                            ImageUrl = "C:\\Users\\Liliia Malinska\\source\\repos\\OnlineStore\\OnlineStore\\wwwroot\\images\\bags\\bag-1.jpg",
                             Name = "Bag 1",
                             Price = 599.99m,
                             StockQuantity = 50
@@ -108,7 +111,7 @@ namespace DataAccess.Migrations
                             Id = 2,
                             CategoryId = 1,
                             Description = "Bag 2 description",
-                            ImageUrl = "images\\bags\\bag-2.jpg",
+                            ImageUrl = "C:\\Users\\Liliia Malinska\\source\\repos\\OnlineStore\\OnlineStore\\wwwroot\\images\\bags\\bag-2.jpg",
                             Name = "Bag 2",
                             Price = 999.99m,
                             StockQuantity = 30
@@ -118,7 +121,7 @@ namespace DataAccess.Migrations
                             Id = 3,
                             CategoryId = 1,
                             Description = "Bag 3 description",
-                            ImageUrl = "images\\bags\\bag-3.jpg",
+                            ImageUrl = "C:\\Users\\Liliia Malinska\\source\\repos\\OnlineStore\\OnlineStore\\wwwroot\\images\\bags\\bag-3.jpg",
                             Name = "Bag 3",
                             Price = 19.99m,
                             StockQuantity = 100
@@ -128,7 +131,7 @@ namespace DataAccess.Migrations
                             Id = 4,
                             CategoryId = 1,
                             Description = "Bag 4 description",
-                            ImageUrl = "images\\bags\\bag-4.jpg",
+                            ImageUrl = "C:\\Users\\Liliia Malinska\\source\\repos\\OnlineStore\\OnlineStore\\wwwroot\\images\\bags\\bag-4.jpg",
                             Name = "Bag 4",
                             Price = 12.99m,
                             StockQuantity = 70
