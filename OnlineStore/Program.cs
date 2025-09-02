@@ -64,10 +64,13 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-app.UseAuthentication();
-app.UseAuthorization();
+// Disable CORS since angular will be running on port 4200 and the service on port 5258.
+app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 app.UseMiddleware<GlobalExceptionMiddleware>();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
@@ -80,10 +83,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 
-app.UseCors("AllowAngular");
+//app.UseCors("AllowAngular");
 //app.UseHttpsRedirection();
-
-// Disable CORS since angular will be running on port 4200 and the service on port 5258.
-app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 app.Run();

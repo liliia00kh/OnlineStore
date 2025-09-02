@@ -18,7 +18,7 @@ namespace OnlineStore.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetProducts()
         {
             var products = await _productService.GetAllProductsAsync();
