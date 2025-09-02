@@ -1,0 +1,54 @@
+﻿name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main   # або master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # 🔹 Встановлюємо .NET
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
+
+    # 🔹 Встановлюємо Node.js для Angular
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
+
+    # 🔹 Відновлюємо залежності бекенду
+    - name: Restore .NET dependencies
+      run: dotnet restore OnlineStore.sln
+
+    # 🔹 Білдимо бекенд
+    - name: Build .NET
+      run: dotnet build --no-restore --configuration Release OnlineStore.sln
+
+    # 🔹 Тести (якщо є)
+    - name: Run tests
+      run: dotnet test --no-build --verbosity normal
+
+    # 🔹 Білдимо Angular
+    - name: Install Angular deps
+      run: npm install --prefix OnlineStoreClient
+
+    - name: Build Angular
+      run: npm run build --prefix OnlineStoreClient
+
+    # 🔹 Публікуємо бекенд
+    - name: Publish .NET
+      run: dotnet publish OnlineStore/OnlineStore.csproj -c Release -o out
+
+    # Тут залежно від хостингу:
+    # 1) Azure Web App Deploy
+    # 2) Docker push
+    # 3) Копіювання на сервер
