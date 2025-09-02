@@ -5,7 +5,7 @@ namespace DataAccess.UnitOfWork
 {
     public interface IUnitOfWork<out StoreContext> : IDisposable where StoreContext : DbContext
     {
-        ProductRepository ProductRepository { get; }
+        IProductRepository ProductRepository { get; }
         StoreContext Context { get; }
         Task CreateTransactionAsync();
         Task CommitAsync();

@@ -11,9 +11,8 @@ namespace DataAccess.UnitOfWork
             Context = context;
         }
 
-
         public OnlineStoreDbContext Context { get; }
-        public ProductRepository ProductRepository
+        public IProductRepository ProductRepository
         {
             get { return _productRepository ??= new ProductRepository(Context); }
         }

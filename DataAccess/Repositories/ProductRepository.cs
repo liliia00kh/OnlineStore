@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repositories
 {
-    public class ProductRepository : GenericRepository<Product>
+    public class ProductRepository : GenericRepository<Product>, IProductRepository
     {
         private readonly DbSet<Product> _dbSet;
         public ProductRepository(OnlineStoreDbContext context) : base(context)
