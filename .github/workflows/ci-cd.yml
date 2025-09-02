@@ -1,4 +1,4 @@
-﻿name: Backend CI
+name: Backend CI
 
 on:
   push:
@@ -24,13 +24,13 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore OnlineStore.sln
       
-    - name: Build
+    - name: Build solution
       run: dotnet build OnlineStore.sln --configuration Release --no-restore
       
     - name: Run tests
-      run: dotnet test ServicesTests/ServicesTests.csproj --no-build --verbosity normal
+      run: dotnet test ServicesTests/ServicesTests.csproj --configuration Release --no-build --verbosity normal
       
-    - name: Publish
+    - name: Publish backend
       run: dotnet publish OnlineStore/OnlineStore.csproj -c Release -o out
 
     - name: Upload build artifact
