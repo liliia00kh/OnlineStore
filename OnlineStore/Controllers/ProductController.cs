@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OnlineStore.DTOs;
 using OnlineStore.ExceptionHandling;
 using Services.Services;
@@ -12,9 +11,11 @@ namespace OnlineStore.Controllers
     public class ProductController : ControllerBase
     {
         IProductService _productService;
-        public ProductController(IProductService productService)
+        IProductChangeLogService _productChangeLogService;
+        public ProductController(IProductService productService, IProductChangeLogService productChangeLogService)
         {
             _productService = productService;
+            _productChangeLogService = productChangeLogService;
         }
 
         [HttpGet]
@@ -39,5 +40,27 @@ namespace OnlineStore.Controllers
             }
             return Ok(productDTOs);
         }
+
+        [HttpPut("update-price")]
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateProductPrice([FromBody] UpdateProductPriceDTO dto)
+        {
+            if (dto.NewPrice <= 0)
+                return BadRequest("Price must be greater than zero");
+
+            var username = User.Identity?.Name ?? "system";
+
+            await _productService.UpdateProductPriceAsync(dto.ProductId, dto.NewPrice, username);
+
+            return Ok(new { message = "Product price updated successfully" });
+        }
+
+        [HttpGet("{id}/history")]
+        public async Task<IActionResult> GetProductHistory(int id)
+        {
+            var logs = await _productChangeLogService.GetLogsAsync(id);
+            return Ok(logs);
+        }
+
     }
 }
