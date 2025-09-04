@@ -11,17 +11,19 @@ namespace ServicesTests.Services
     {
         Mock<IUnitOfWork<OnlineStoreDbContext>> _unitOfWorkMock;
         private readonly Mock<IProductRepository> _productRepoMock;
+        private readonly Mock<IProductChangeLogService> _productChangeLogServiceMock;
         public ProductServiceTests()
         {
             _unitOfWorkMock = new Mock<IUnitOfWork<OnlineStoreDbContext>>();
             _productRepoMock = new Mock<IProductRepository>();
+            _productChangeLogServiceMock = new Mock<IProductChangeLogService>();
         }
 
         [Fact]
         public async void GetAllProductsAsync_GetAll_ReturnEmptyList()
         {
             _unitOfWorkMock.Setup(x => x.ProductRepository).Returns(_productRepoMock.Object);
-            IProductService productService = new ProductService(_unitOfWorkMock.Object);
+            IProductService productService = new ProductService(_unitOfWorkMock.Object, _productChangeLogServiceMock.Object);
             var result = await productService.GetAllProductsAsync();
 
             Assert.Empty(result);
@@ -32,7 +34,7 @@ namespace ServicesTests.Services
         {
             _productRepoMock.Setup(x => x.GetAllAsync()).ReturnsAsync([new Product() { Id = 1, Name = "Bag" }, new Product() { Id = 2, Name = "Bag" }]);
             _unitOfWorkMock.Setup(x => x.ProductRepository).Returns(_productRepoMock.Object);
-            IProductService productService = new ProductService(_unitOfWorkMock.Object);
+            IProductService productService = new ProductService(_unitOfWorkMock.Object, _productChangeLogServiceMock.Object);
             var result = await productService.GetAllProductsAsync();
 
             Assert.Equal(2, result.Count());

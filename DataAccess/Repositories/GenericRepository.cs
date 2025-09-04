@@ -17,7 +17,7 @@ namespace DataAccess.Repositories
             return await _dbSet.ToListAsync();
         }
 
-        public async Task<T?> GetByIdAsync(Guid id)
+        public async Task<T?> GetByIdAsync(int id)
         {
             return await _dbSet.FindAsync(id);
         }
@@ -44,7 +44,7 @@ namespace DataAccess.Repositories
             return _dbSet.ToList();
         }
 
-        public async Task<bool> CheckIfExistAsync(Guid id)
+        public async Task<bool> CheckIfExistAsync(int id)
         {
             return await GetByIdAsync(id) != null;
         }

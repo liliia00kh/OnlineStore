@@ -1,3 +1,4 @@
+using DataAccess.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using OnlineStore;
@@ -10,6 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddDataAccess(builder.Configuration);
+
+builder.Services.Configure<MongoSettings>(
+   builder.Configuration.GetSection("MongoSettings"));
 
 builder.Services.AddControllers();
 

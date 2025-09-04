@@ -1,4 +1,5 @@
 ﻿using DataAccess.Context;
+using DataAccess.Repositories;
 using DataAccess.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using OnlineStore.ExceptionHandling;
@@ -30,6 +31,10 @@ namespace OnlineStore
             services.AddScoped<IUnitOfWork<OnlineStoreDbContext>, UnitOfWork>();
             services.AddScoped<IProductService, ProductService>();
             services.AddTransient<GlobalExceptionMiddleware>();
+
+            services.AddSingleton<MongoContext>();
+            services.AddScoped<IProductChangeLogRepository, ProductChangeLogRepository>();
+            services.AddScoped<IProductChangeLogService, ProductChangeLogService>();
 
             return services;
         }
