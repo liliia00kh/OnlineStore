@@ -1,0 +1,12 @@
+﻿version: "3.9"
+
+services:
+  server:
+    build:
+      context: .
+      target: final
+    ports:
+      - "8080:8080"   # Зовнішній 8080 → внутрішній 8080
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
