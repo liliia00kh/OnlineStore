@@ -1,0 +1,2 @@
+CREATE DATABASE OnlineStoreDb;
+GO

@@ -9,11 +9,11 @@ namespace OnlineStore
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddDataAccess(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddDataAccess(this WebApplicationBuilder builder)
         {
-            services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
-            services.AddCors(options =>
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+            builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAngular",
                     policy =>
@@ -25,18 +25,36 @@ namespace OnlineStore
             });
 
             // EF Core
-            services.AddDbContext<OnlineStoreDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            // Select the connection string based on the environment
+            string defaultConnection;
 
-            services.AddScoped<IUnitOfWork<OnlineStoreDbContext>, UnitOfWork>();
-            services.AddScoped<IProductService, ProductService>();
-            services.AddTransient<GlobalExceptionMiddleware>();
+            if (builder.Environment.IsDevelopment() && Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") != "true")
+            {
+                // Local run (Visual Studio / dotnet run)
+                defaultConnection = builder.Configuration.GetConnectionString("DefaultConnection");
+            }
+            else
+            {
+                // Running in Docker or in Production
+                // Prefer the connection string from the environment variable if available,
+                // otherwise fall back to the one in appsettings.json
+                defaultConnection = Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection")
+                                    ?? builder.Configuration.GetConnectionString("DefaultConnection");
+            }
 
-            services.AddSingleton<MongoContext>();
-            services.AddScoped<IProductChangeLogRepository, ProductChangeLogRepository>();
-            services.AddScoped<IProductChangeLogService, ProductChangeLogService>();
+            // Configure Entity Framework to use SQL Server with the selected connection string
+            builder.Services.AddDbContext<OnlineStoreDbContext>(options =>
+                options.UseSqlServer(defaultConnection));
 
-            return services;
+            builder.Services.AddScoped<IUnitOfWork<OnlineStoreDbContext>, UnitOfWork>();
+            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddTransient<GlobalExceptionMiddleware>();
+
+            builder.Services.AddSingleton<MongoContext>();
+            builder.Services.AddScoped<IProductChangeLogRepository, ProductChangeLogRepository>();
+            builder.Services.AddScoped<IProductChangeLogService, ProductChangeLogService>();
+
+            return builder.Services;
         }
 
     }
