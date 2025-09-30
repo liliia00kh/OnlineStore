@@ -12,8 +12,12 @@ services:
       - DOTNET_RUNNING_IN_CONTAINER=true
       - ASPNETCORE_URLS=http://+:8080
       - ConnectionStrings__DefaultConnection=Server=db;Database=OnlineStoreDb;User=sa;Password=YourStrong!Passw0rd;Encrypt=False;TrustServerCertificate=True;
+      - MongoSettings__ConnectionString=mongodb://mongo:27017
+      - MongoSettings__Database=OnlineStoreMongo
+      - MongoSettings__ProductChangesCollection=ProductChangeLogs
     depends_on:
       - db
+      - mongo
 
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest
@@ -26,6 +30,16 @@ services:
     volumes:
       - sqlserver-data:/var/opt/mssql
       - ./init-db:/docker-entrypoint-initdb.d   # <-- папка з init.sql
+
+  mongo:
+    image: mongo:7.0
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
           
 volumes:
   sqlserver-data:
+  mongo-data:
