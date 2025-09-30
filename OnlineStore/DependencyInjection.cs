@@ -9,11 +9,11 @@ namespace OnlineStore
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddDataAccess(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddDataAccess(this WebApplicationBuilder builder)
         {
-            services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
-            services.AddCors(options =>
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+            builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAngular",
                     policy =>
@@ -24,19 +24,18 @@ namespace OnlineStore
                     });
             });
 
-            // EF Core
-            services.AddDbContext<OnlineStoreDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddDbContext<OnlineStoreDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped<IUnitOfWork<OnlineStoreDbContext>, UnitOfWork>();
-            services.AddScoped<IProductService, ProductService>();
-            services.AddTransient<GlobalExceptionMiddleware>();
+            builder.Services.AddScoped<IUnitOfWork<OnlineStoreDbContext>, UnitOfWork>();
+            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddTransient<GlobalExceptionMiddleware>();
 
-            services.AddSingleton<MongoContext>();
-            services.AddScoped<IProductChangeLogRepository, ProductChangeLogRepository>();
-            services.AddScoped<IProductChangeLogService, ProductChangeLogService>();
+            builder.Services.AddSingleton<MongoContext>();
+            builder.Services.AddScoped<IProductChangeLogRepository, ProductChangeLogRepository>();
+            builder.Services.AddScoped<IProductChangeLogService, ProductChangeLogService>();
 
-            return services;
+            return builder.Services;
         }
 
     }

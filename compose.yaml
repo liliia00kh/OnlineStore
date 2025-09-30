@@ -6,7 +6,26 @@ services:
       context: .
       target: final
     ports:
-      - "8080:8080"   # Зовнішній 8080 → внутрішній 8080
+      - "8080:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - DOTNET_RUNNING_IN_CONTAINER=true
       - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__DefaultConnection=Server=db;Database=OnlineStoreDb;User=sa;Password=YourStrong!Passw0rd;Encrypt=False;TrustServerCertificate=True;
+    depends_on:
+      - db
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    environment:
+      SA_PASSWORD: "YourStrong!Passw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+      - ./init-db:/docker-entrypoint-initdb.d   # <-- папка з init.sql
+          
+volumes:
+  sqlserver-data:

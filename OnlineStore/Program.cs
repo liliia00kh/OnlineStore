@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddDataAccess(builder.Configuration);
+builder.AddDataAccess();
 
 builder.Services.Configure<MongoSettings>(
    builder.Configuration.GetSection("MongoSettings"));
