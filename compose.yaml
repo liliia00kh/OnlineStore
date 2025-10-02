@@ -1,9 +1,7 @@
-﻿version: "3.9"
-
-services:
+﻿services:
   server:
     build:
-      context: .
+      context: . 
       target: final
     ports:
       - "8080:8080"
@@ -18,6 +16,14 @@ services:
     depends_on:
       - db
       - mongo
+
+  client:
+    build:
+      context: ../Client
+    ports:
+      - "4200:80"
+    depends_on:
+      - server
 
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest
