@@ -21,3 +21,11 @@ steps:
     azureSubscription: 'Azure subscription 1(fe75b8f4-65c4-4f51-9916-69d3fca6f6ab)'
     command: 'publish'
     publishWebProjects: true
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Azure subscription 1(fe75b8f4-65c4-4f51-9916-69d3fca6f6ab)'
+    appType: 'webApp'
+    appName: 'online-store-liliia'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    deploymentMethod: 'auto'
