@@ -62,5 +62,24 @@ namespace OnlineStore.Controllers
             return Ok(logs);
         }
 
+        [HttpGet("cancelable-task")]
+        public async Task<IActionResult> GetProductsAsync(CancellationToken cancellationToken)
+        {
+            try
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+                    await Task.Delay(1000, cancellationToken); // асинхронна затримка з підтримкою токена
+                }
+
+                return Ok(new[] { "Product1", "Product2", "Product3" });
+            }
+            catch (OperationCanceledException)
+            {
+                return BadRequest("Запит скасовано клієнтом");
+            }
+        }
+
     }
 }
