@@ -78,13 +78,11 @@ using (var scope = app.Services.CreateScope())
 
 // Disable CORS since angular will be running on port 4200 and the service on port 5258.
 app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-
 app.UseMiddleware<GlobalExceptionMiddleware>();
-
+//app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.MapControllers();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -102,10 +100,5 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-
-app.UseStaticFiles();
-
-//app.UseCors("AllowAngular");
-//app.UseHttpsRedirection();
-
+app.MapControllers();
 app.Run();
