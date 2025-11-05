@@ -1,5 +1,6 @@
 using DataAccess.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using OnlineStore;
 using OnlineStore.ExceptionHandling;
@@ -70,7 +71,8 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<OnlineStoreDbContext>();
-    db.Database.EnsureCreated(); // або db.Database.Migrate();
+    //db.Database.EnsureCreated();
+    db.Database.Migrate();
 }
 
 
