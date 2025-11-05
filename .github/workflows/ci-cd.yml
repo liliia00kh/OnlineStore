@@ -1,3 +1,4 @@
+а тепер поясни ось цe CICD GitHub
 name: Backend CI
 
 on:
@@ -38,7 +39,7 @@ jobs:
       with:
         name: backend-publish
         path: out
-
+    
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v3
       with:
