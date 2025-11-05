@@ -70,9 +70,11 @@ builder.Services.AddAuthorization();
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
+    Console.WriteLine("Hello!");
     var db = scope.ServiceProvider.GetRequiredService<OnlineStoreDbContext>();
     //db.Database.EnsureCreated();
     db.Database.Migrate();
+    Console.WriteLine("Here is no problem!");
 }
 
 
